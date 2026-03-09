@@ -1,268 +1,254 @@
 # vault-mcp-server
-MCP server allowing AI agents to request permissioned context from Vault.
-The open protocol for permissioned personal AI context.
+MCP server for giving AI agents permissioned access to user-owned context through Vault.
 
-Vault Context Protocol defines how AI systems can securely request, verify, and use personal context owned and controlled by individuals.
+Vault MCP Server allows agent frameworks, AI tools, and coding agents to request, verify, and use personal context via the Vault Context Protocol.
 
-It introduces the **ownership layer for AI**.
+Vault introduces the **ownership layer for AI**.
 
 ---
 
 ## Overview
 
-Artificial intelligence systems are becoming more powerful every day.
+AI agents are becoming more capable every day.
 
-But they still lack one critical capability:
+But most agents still lack one critical capability:
 
-**personal context.**
+**persistent personal context**
 
-AI tools do not know:
+They do not know:
 
-- who you are  
-- what you care about  
-- what you are working on  
-- your preferences  
-- your knowledge  
-- your goals  
+- who the user is
+- what the user is working on
+- the user's preferences
+- the user's goals
+- the user's knowledge
 
-As a result, users constantly repeat themselves across AI systems.
+As a result, agents are powerful but generic.
 
-The Vault Context Protocol introduces a standardized way for AI systems to request and use **user-owned context** with explicit permission.
-
-Vault provides a **secure interface between humans and AI systems**.
+Vault MCP Server gives agents a standard interface for requesting and using user-owned context with explicit permission.
 
 ---
 
-## The Ownership Layer
+## What is MCP?
 
-AI systems provide intelligence.
+Model Context Protocol (MCP) provides a standard way for AI systems to connect to external tools and context sources.
 
-Vault provides ownership and context.
+Vault MCP Server exposes personal context as MCP tools so that AI agents can securely interact with a user's Vault.
 
+This allows agents to:
 
-Human
-↓
-Vault
-↓
-AI Tools & Agents
-↓
-AI Models
-
-
-Humans generate the data and context that make AI useful.
-
-Vault ensures individuals retain control over that context.
+- request context
+- verify permissions
+- retrieve approved context
+- operate with persistent user understanding
 
 ---
 
-## Core Principles
+## What the Vault MCP Server Does
 
-The Vault Context Protocol is designed around five principles.
+Vault MCP Server provides an AI-native integration layer for Vault.
 
-### 1. User Ownership
+It allows agents to:
 
-Users own the data and context that power their AI experiences.
+- connect to a user vault
+- request specific context scopes
+- receive a Vault Passport
+- verify permissions
+- retrieve approved context blocks
 
-Vault ensures individuals can:
+The goal is simple:
 
-- view their data  
-- control access  
-- revoke permissions  
-- delete context  
-
----
-
-### 2. Explicit Permission
-
-AI systems must request permission before accessing personal context.
-
-Nothing is shared without user approval.
-
----
-
-### 3. Interoperability
-
-Users should be able to move between AI systems without losing their personal context.
-
-The Vault protocol allows AI tools to interoperate through a shared context standard.
-
----
-
-### 4. Transparency
-
-Users should always know:
-
-- what data is being accessed  
-- which systems accessed it  
-- when it was used  
-
----
-
-### 5. Portability
-
-Personal context should move with the user across platforms and AI systems.
+**AI agents should not start from zero.**
 
 ---
 
 ## Core Concepts
 
-The Vault Context Protocol introduces three core primitives.
+### User Vault
 
-### Context Blocks
+A secure personal context store owned and controlled by the user.
 
-Structured units of personal context.
+A vault may contain:
 
-Examples include:
+- identity
+- preferences
+- projects
+- knowledge
+- documents
+- goals
 
-- identity  
-- preferences  
-- projects  
-- knowledge  
-- documents  
-- goals  
+---
 
-Example structure:
+### Vault Passport
 
-```json
-{
-  "identity": {
-    "name": "Byron",
-    "role": "Founder"
-  },
-  "preferences": {
-    "tone": "structured",
-    "format": "concise"
-  },
-  "projects": [
-    "Vault AI",
-    "Ownership Layer Manifesto"
-  ]
-}
-
-Context blocks allow AI systems to understand users quickly.
-
-Permission Requests
-
-AI systems must request permission before accessing context.
-
-Example request:
-
-ChatGPT is requesting access to:
-
-• Preferences  
-• Projects  
-• Knowledge  
-
-Approve?
-
-Users can approve or deny access.
-
-Vault Passport
-
-When permission is granted, Vault issues a Vault Passport.
-
-A Vault Passport is a signed credential allowing an AI system to access specific context blocks.
-
-Example structure:
-
-{
-  "vault_id": "user_123",
-  "scopes": ["preferences", "projects"],
-  "issued_at": "2026-01-01",
-  "expires_at": "2026-01-02",
-  "signature": "vault_signature_hash"
-}
+A signed, scoped, time-limited credential issued by Vault after the user approves access.
 
 Passports are:
 
-scoped
+- scoped
+- verifiable
+- revocable
+- time-bound
 
-time-limited
+---
 
-revocable
+### Context Blocks
 
-verifiable
+Structured units of personal context that agents can request.
 
-Developer Flow
+Examples:
 
-Example interaction between an AI agent and a Vault.
+- preferences
+- projects
+- knowledge
+- goals
 
-Agent → Request context  
-Vault → Ask user for permission  
-User → Approve request  
-Vault → Issue Vault Passport  
-Agent → Receive structured context
+---
 
-Developers interact with Vault through SDKs and APIs.
+## MCP Tools
 
-Example:
+The first version of the Vault MCP Server is expected to expose tools such as:
 
-from vault import connect_vault
+- `vault.get_identity`
+- `vault.get_preferences`
+- `vault.get_projects`
+- `vault.get_documents`
+- `vault.request_passport`
+- `vault.verify_passport`
+- `vault.revoke_access`
 
-vault = connect_vault(user_id="123")
+These tools allow agents to access only the context they need.
 
-context = vault.get_context(["preferences", "projects"])
+---
+
+## Example Agent Flow
+
+```text
+Agent starts
+   ↓
+Agent connects to Vault MCP Server
+   ↓
+Agent requests context scopes
+   ↓
+Vault asks user for permission
+   ↓
+Vault issues Passport
+   ↓
+Agent verifies Passport
+   ↓
+Agent receives approved context
 Example Use Cases
 
-Vault enables developers to build AI systems that understand users instantly.
-
-Example applications include:
+Vault MCP Server can be used to power:
 
 AI personal assistants
+
+AI planning agents
 
 AI research copilots
 
 AI travel planners
 
-AI personal CRMs
-
-AI planning agents
+AI personal CRM agents
 
 AI knowledge assistants
 
 All powered by user-owned context.
 
-Relationship to AI Systems
+Example Tool Usage
 
-Vault does not replace AI models.
+An AI agent might call the following tools:
 
-Instead, Vault provides the context layer that allows AI systems to operate effectively.
+Request access
+{
+  "tool": "vault.request_passport",
+  "args": {
+    "agent_id": "planning-agent",
+    "scopes": ["preferences", "projects"],
+    "purpose": "Provide a personalized weekly plan"
+  }
+}
+Verify passport
+{
+  "tool": "vault.verify_passport",
+  "args": {
+    "passport_id": "vp_12345"
+  }
+}
+Retrieve context
+{
+  "tool": "vault.get_preferences",
+  "args": {
+    "passport_id": "vp_12345"
+  }
+}
+Why MCP Matters for Vault
 
-AI models provide intelligence.
+MCP gives Vault a standard way to integrate with the emerging AI agent ecosystem.
 
-Vault provides identity and context.
+Instead of creating one-off integrations for every product, Vault can expose a consistent interface that any MCP-compatible agent can use.
 
-Together they create personal AI.
+This makes Vault:
 
-Protocol Status
+easier to adopt
 
-Vault Context Protocol is currently in early development.
+easier to integrate
 
-This repository defines the initial specification and core primitives.
+more useful for AI-native developers
 
-Future work includes:
+Relationship to Vault SDK
 
-protocol extensions
+Vault MCP Server and Vault SDK are complementary.
 
-SDK implementations
+Vault SDK is for application developers integrating directly with Vault
 
-developer tooling
+Vault MCP Server is for AI agents and agent frameworks using tool-based interfaces
 
-ecosystem integrations
+Both are built on the Vault Context Protocol.
+
+Relationship to Vault Context Protocol
+
+Vault Context Protocol defines:
+
+how personal context is structured
+
+how permissions are requested
+
+how passports are issued
+
+how access is verified
+
+Vault MCP Server exposes those primitives through MCP tools.
+
+Status
+
+Vault MCP Server is currently in early development.
+
+Planned work includes:
+
+reference MCP server implementation
+
+local development mode
+
+example agent integrations
+
+hosted Vault API support
+
+example tools and schemas
 
 Contributing
 
-We welcome discussion and contributions from developers, researchers, and AI builders.
+We welcome developers, researchers, and AI builders who want to help shape the ownership layer for AI.
 
 You can contribute by:
 
-proposing protocol improvements
+proposing MCP tool definitions
 
-suggesting use cases
+suggesting agent use cases
 
-building integrations
+building example integrations
 
-creating SDKs
+testing interoperability with agent frameworks
 
 Please open an issue or start a discussion.
 
@@ -272,14 +258,12 @@ MIT License
 
 Copyright 2026 Byron Goodman
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the “Software”), to deal
-in the Software without restriction.
+See LICENSE for details.
 
-See LICENSE file for full details.
+Why This Matters
 
-The Future of Personal AI
+AI models provide intelligence.
 
-Humans should own the data that powers AI.
+Vault provides ownership and context.
 
-Vault exists to make that possible.
+Vault MCP Server gives agents a standard way to access both — with user permission.
